@@ -29,7 +29,7 @@ App.onJoinPlayer.Add((player) => {
 		// App.sayToAll("parse clear");
 		// App.sayToAll(typeof userId[0]);
 	} else {
-		App.sayToAll("please enter the userId");
+		App.sayToAll("please enter the userId", 0xd835a2);
 		App.onSay.add((player, text) => {
 			userId.push(text.replace(/ /g, "").split(","));
 		});
@@ -72,7 +72,7 @@ App.onJoinPlayer.Add((player) => {
 
 const missingNotice = (name) => {
 	App.showCenterLabel(
-		`실종 아동을 찾습니다. ${name} 어린이를 보신 분은 안내소로 신고 부탁드립니다.`
+		`Looking for missing child. If you see a child named ${name}, please report to the information desk.`
 	);
 	return 0;
 };
