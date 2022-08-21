@@ -12,11 +12,16 @@ const rightX = 86;
 
 let kidLatitude = null;
 let kidLongitude = null;
+let parentsLatitude = null;
+let parentsLongitude = null;
 let kidLocX = null;
 let kidLocY = null;
+let parentsX = null;
+let parentsY = null;
 
 let kid = App.loadSpritesheet("kid.png");
 let magni = App.loadSpritesheet("magni.png");
+let parentsPing = App.loadSpritesheet("parentsPing.png");
 
 let userId = [];
 
@@ -29,7 +34,7 @@ App.onJoinPlayer.Add((player) => {
 		// App.sayToAll("parse clear");
 		// App.sayToAll(typeof userId[0]);
 	} else {
-		App.sayToAll("please enter the userId", 0xd835a2);
+		App.sayToAll("please enter the userId", 0x00ff15);
 		App.onSay.add((player, text) => {
 			userId.push(text.replace(/ /g, "").split(","));
 		});
@@ -49,17 +54,36 @@ App.onJoinPlayer.Add((player) => {
 						) {
 							kidLatitude = response.data[i].cGPS.latitude;
 							kidLongitude = response.data[i].cGPS.longitude;
+							parentsLatitude = response.data[i].pGPS.latitude;
+							parentsLongitude = response.data[i].pGPS.longitude;
 							// App.sayToAll(`${kidLatitude} ${kidLongitude} \n`, 0xffffff);
 							kidLocY =
 								topY +
 								((kidLatitude - topLatitude) / latitudeValue) *
-									(topY - bottomY);
+									(topY - bottomY) -
+								2;
 							kidLocX =
 								leftX +
 								((kidLongitude - leftLongitude) / longitudeValue) *
-									(rightX - leftX);
+									(rightX - leftX) -
+								1;
+							parentsX =
+								topY +
+								((parentsLatitude - topLatitude) / latitudeValue) *
+									(topY - bottomY) -
+								1;
+							parentsY =
+								leftX +
+								((parentsLongitude - leftLongitude) / longitudeValue) *
+									(rightX - leftX) -
+								1;
 							// App.sayToAll(`${kidLocX} ${kidLocY} \n`, 0xffffff);
-							Map.putObject(kidLocX, kidLocY, kid, { overlap: true });
+							if (kidLocX || kidLocY)
+								Map.putObject(kidLocX, kidLocY, kid, { overlap: true });
+							if (parentsX || parentsY)
+								Map.putObject(parentsX, parentsY, parentsPing, {
+									overlap: true,
+								});
 						}
 					}
 					if (response.data[i].losted) {
