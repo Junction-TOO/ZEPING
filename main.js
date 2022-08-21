@@ -18,7 +18,7 @@ let kidLocY = null;
 let kid = App.loadSpritesheet("kid.png");
 let magni = App.loadSpritesheet("magni.png");
 
-let userId = null;
+let userId = [];
 
 App.onJoinPlayer.Add((player) => {
 	player.sprite = magni;
@@ -29,7 +29,7 @@ App.onJoinPlayer.Add((player) => {
 		// App.sayToAll("parse clear");
 		// App.sayToAll(typeof userId[0]);
 	} else {
-		App.sayToAll("유저ID 를 입력해주세요.");
+		App.sayToAll("please enter the userId");
 		App.onSay.add((player, text) => {
 			userId.push(text.replace(/ /g, "").split(","));
 		});
